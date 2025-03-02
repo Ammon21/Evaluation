@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-# Function to plot the radar chart without text around the chart
+# Function to plot the radar chart with world-class aesthetics
 def plot_radar_chart(teacher_data, teacher_name, feature_columns):
     # Calculate the average of the columns for the selected teacher
     values = teacher_data[feature_columns].mean().tolist()
@@ -19,16 +19,16 @@ def plot_radar_chart(teacher_data, teacher_name, feature_columns):
         text=feature_columns,  # Tooltip text on hover
         hoverinfo='text+name+r',  # Display name and value on hover
         line=dict(
-            color='rgba(93, 164, 214, 0.7)',  # Light blue color for the line
+            color='rgba(255, 165, 0, 0.8)',  # Creamy orange line
             width=3,
-            dash='dot',  # Dotted line for a stylish effect
+            dash='solid',  # Solid line for a sleek look
         ),
         marker=dict(
             size=10,
-            color='rgb(93, 164, 214)',
+            color='rgba(255, 165, 0, 0.9)',
             line=dict(color='rgba(255, 255, 255, 0.5)', width=2),
         ),
-        fillcolor='rgba(93, 164, 214, 0.3)',  # Semi-transparent fill color
+        fillcolor='rgba(255, 165, 0, 0.3)',  # Semi-transparent orange fill
     ))
 
     # Adding a gradient background for the radar chart
@@ -39,7 +39,7 @@ def plot_radar_chart(teacher_data, teacher_name, feature_columns):
                 range=[0, 5],  # Assuming the rating is from 0 to 5
                 tickvals=[0, 1, 2, 3, 4, 5],  # Radial ticks
                 ticktext=['0', '1', '2', '3', '4', '5'],  # Radial ticks text
-                tickfont=dict(size=14, color='rgb(200, 200, 200)'),  # Radial tick font size
+                tickfont=dict(size=14, color='rgba(200, 200, 200, 0.8)'),  # Radial tick font size
             ),
             angularaxis=dict(
                 visible=False,  # Hide the angular axis labels (column names)
@@ -47,18 +47,21 @@ def plot_radar_chart(teacher_data, teacher_name, feature_columns):
         ),
         title=f"Teacher Evaluation for {teacher_name}",
         title_font=dict(
-            size=20, 
-            color='rgb(44, 62, 80)', 
-            family="Arial, sans-serif", 
-            weight='bold'
+            size=24,
+            color='rgb(44, 62, 80)',
+            family="Arial, sans-serif",
+            weight='bold',
         ),
-        font=dict(size=14, color='rgb(44, 62, 80)', family="Arial, sans-serif"),
+        font=dict(size=16, color='rgb(44, 62, 80)', family="Arial, sans-serif"),
         plot_bgcolor='rgba(0, 0, 0, 0)',  # Transparent background for the plot area
         paper_bgcolor='rgba(0, 0, 0, 0)',  # Transparent paper background for the chart
         showlegend=True,
-        margin=dict(t=50, b=50, l=50, r=50),
+        margin=dict(t=40, b=40, l=40, r=40),
         hovermode="closest",  # Closest hover effect
-        autosize=True  # Ensure the chart is responsive
+        xaxis=dict(showgrid=False),  # Hiding gridlines for a clean look
+        yaxis=dict(showgrid=True, gridwidth=0.5, gridcolor='rgba(200, 200, 200, 0.3)'),
+        hoverlabel=dict(bgcolor='rgba(255, 165, 0, 0.8)', font_size=16, font_family="Arial, sans-serif"),
+        dragmode='zoom',  # Zoom effect for interactivity
     )
 
     return fig
@@ -133,21 +136,6 @@ def radar_dashboard():
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-between;
-                gap: 10px;
-            }
-            @media (max-width: 768px) {
-                .header {
-                    font-size: 24px;
-                }
-                .card-header {
-                    font-size: 16px;
-                }
-                .card-content {
-                    font-size: 14px;
-                }
-                .card {
-                    flex: 1 1 100%;
-                }
             }
         </style>
     """, unsafe_allow_html=True)
