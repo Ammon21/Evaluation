@@ -1,6 +1,7 @@
 import streamlit as st
 import evaluation_dashboard
 import teacher_ranking
+import radarv6
 
 # Set page title and favicon
 st.set_page_config(page_title="Teachers Dashboard", page_icon="📊", layout="wide")
@@ -41,7 +42,7 @@ with st.sidebar:
     
     page = st.radio(
         "Choose Page:",
-        ["Teacher Evaluation Dashboard", "Teacher Ranking Dashboard"]
+        ["Teacher Evaluation Dashboard", "Teacher Ranking Dashboard", "Teacher Profile Radar"]
     )
 
 # Display Selected Page
@@ -49,3 +50,5 @@ if page == "Teacher Evaluation Dashboard":
     evaluation_dashboard.show_evaluation_dashboard()
 elif page == "Teacher Ranking Dashboard":
     teacher_ranking.show_teacher_ranking()
+elif page == "Teacher Profile Radar":
+    radarv6.radar_dashboard()
