@@ -4,8 +4,8 @@ import pandas as pd
 def show_evaluation_dashboard():
     st.title("Lebawi International Academy")
 
-    # Load the dataset from CSV
-    df = pd.read_csv('eval.csv', encoding='cp1252')  # Make sure the file 'eval.csv' is in the correct path
+    # Load the dataset from CSV (Ensure the correct path and encoding)
+    df = pd.read_csv('eval.csv', encoding='cp1252')  # Adjust the encoding if needed
 
     # Create a stylish header for the academy name and logo
     st.markdown("""
@@ -182,11 +182,12 @@ def show_evaluation_dashboard():
 
     column_to_analyze = st.selectbox(
         'Select a column to see its average by Grade',
-        ['All Ratings'] + list(df.columns[3:]),
+        ['All Ratings'] + list(df.columns[3:]),  # Assuming the first 3 columns are not numeric ratings
         help="Select a column to display the average rating by grade.",
         key="column_select",
     )
 
+    # Filter dataframe based on the selected teacher
     filtered_df = df[df['Teacher'] == teacher_to_analyze]
 
     if grade_filter == 'All Grades':
@@ -237,3 +238,7 @@ def show_evaluation_dashboard():
             Designed by Ammon, Data Analyst, QA | 2025
         </div>
     """, unsafe_allow_html=True)
+
+# Run the function to display the dashboard
+if __name__ == "__main__":
+    show_evaluation_dashboard()
