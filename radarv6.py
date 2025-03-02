@@ -58,6 +58,7 @@ def plot_radar_chart(teacher_data, teacher_name, feature_columns):
         showlegend=True,
         margin=dict(t=50, b=50, l=50, r=50),
         hovermode="closest",  # Closest hover effect
+        autosize=True  # Ensure the chart is responsive
     )
 
     return fig
@@ -132,6 +133,21 @@ def radar_dashboard():
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-between;
+                gap: 10px;
+            }
+            @media (max-width: 768px) {
+                .header {
+                    font-size: 24px;
+                }
+                .card-header {
+                    font-size: 16px;
+                }
+                .card-content {
+                    font-size: 14px;
+                }
+                .card {
+                    flex: 1 1 100%;
+                }
             }
         </style>
     """, unsafe_allow_html=True)
@@ -197,5 +213,3 @@ def radar_dashboard():
             </div>
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-
-
