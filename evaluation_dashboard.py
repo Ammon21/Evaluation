@@ -4,8 +4,8 @@ import pandas as pd
 def show_evaluation_dashboard():
     st.title("Lebawi International Academy")
 
-    # Load the dataset from CSV (Ensure the correct path and encoding)
-    df = pd.read_csv('eval.csv', encoding='cp1252')  # Adjust the encoding if needed
+    # Load the dataset from CSV
+    df = pd.read_csv('eval.csv', encoding='cp1252')  # Make sure the file 'eval.csv' is in the correct path
 
     # Create a stylish header for the academy name and logo
     st.markdown("""
@@ -182,17 +182,19 @@ def show_evaluation_dashboard():
 
     column_to_analyze = st.selectbox(
         'Select a column to see its average by Grade',
-        ['All Ratings'] + list(df.columns[3:]),  # Assuming the first 3 columns are not numeric ratings
+        ['All Ratings'] + list(df.columns[3:]),
         help="Select a column to display the average rating by grade.",
         key="column_select",
     )
 
-    # Filter dataframe based on the selected teacher
     filtered_df = df[df['Teacher'] == teacher_to_analyze]
+
+    # Ensure numeric columns before applying mean()
+    numeric_columns = filtered_df.select_dtypes(include=['number']).columns
 
     if grade_filter == 'All Grades':
         if column_to_analyze == 'All Ratings':
-            grouped = filtered_df.drop(columns=['Teacher']).groupby('Grade').mean().mean(axis=1)
+            grouped = filtered_df[numeric_columns].groupby('Grade').mean().mean(axis=1)
             total_average = grouped.mean() if not grouped.empty else 0
         else:
             grouped = filtered_df.groupby('Grade')[column_to_analyze].mean()
@@ -200,7 +202,7 @@ def show_evaluation_dashboard():
     else:
         filtered_df = filtered_df[filtered_df['Grade'] == grade_filter]
         if column_to_analyze == 'All Ratings':
-            grouped = filtered_df.drop(columns=['Teacher']).groupby('Grade').mean().mean(axis=1)
+            grouped = filtered_df[numeric_columns].groupby('Grade').mean().mean(axis=1)
             total_average = grouped.mean() if not grouped.empty else 0
         else:
             grouped = filtered_df.groupby('Grade')[column_to_analyze].mean()
@@ -238,7 +240,3 @@ def show_evaluation_dashboard():
             Designed by Ammon, Data Analyst, QA | 2025
         </div>
     """, unsafe_allow_html=True)
-
-# Run the function to display the dashboard
-if __name__ == "__main__":
-    show_evaluation_dashboard()
