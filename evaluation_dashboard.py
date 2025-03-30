@@ -14,6 +14,7 @@ def show_evaluation_dashboard():
             .circle { border: 6px solid #3498db; border-radius: 50%; width: 150px; height: 150px;
                       display: flex; justify-content: center; align-items: center;
                       color: #2c3e50; font-size: 35px; font-weight: 700; margin: 20px auto; }
+            .footer { font-size: 14px; color: #7f8c8d; text-align: center; margin-top: 20px; }
         </style>
     """, unsafe_allow_html=True)
 
@@ -62,5 +63,5 @@ def show_evaluation_dashboard():
     st.write(f"Total weighted average of {column_to_analyze} for {teacher_to_analyze}: {total_average:.2f}")
 
     st.markdown("""
-        <div class="footer">Designed by Ammon, Data Analyst, QA | 2025</div>
+        <div class="footer">Designed by Ammon | Data Analyst | Quality Assurance | 2025</div>
     """, unsafe_allow_html=True)
